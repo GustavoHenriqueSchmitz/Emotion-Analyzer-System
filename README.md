@@ -1,2 +1,2 @@
 # Emotion-Analyzer-System
-An inteligent system to analyze emotions in text.
+An intelligent system for analyzing emotions in text.
