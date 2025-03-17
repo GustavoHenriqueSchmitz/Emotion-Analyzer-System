@@ -1,0 +1,45 @@
+Table Emotion_classify_Data:
+- fear -> 1937
+- anger -> 2000
+- joy -> 2000
+
+final_df_emotions:
+- sadness -> 143
+- anger -> 67
+- joy -> 24
+- disgust -> 43
+- fear -> 128
+- neutral -> 33
+- surprise -> 12
+
+Movies_Reviews_modified_version:
+- anticipation -> 7327
+- sadness -> 17275
+- disgust -> 1670
+- joy -> 7853
+- fear -> 3440
+- optimism -> 4809
+- anger -> 3638
+
+PoemDataset_cleaned:
+- Fear -> 3122
+- Anger -> 1254
+- Love -> 694
+- Sadness -> 1534
+- Joy -> 2517
+- Surprise -> 852
+
+Text emotion:
+- empty -> 827
+- sadness -> 5165
+- enthusiasm -> 759
+- neutral -> 8638
+- worry -> 8459
+- surprise -> 2187
+- love -> 3842
+- fun -> 1776
+- hate -> 1323
+- happiness -> 5209
+- boredom -> 179
+- relief -> 1526
+- anger -> 110
