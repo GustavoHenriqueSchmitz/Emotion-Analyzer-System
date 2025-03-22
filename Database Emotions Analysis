@@ -43,3 +43,23 @@ Text emotion:
 - boredom -> 179
 - relief -> 1526
 - anger -> 110
+
+Total Counts (Consolidated):
+
+    fear: 5823
+    anger: 8338
+    sadness: 25699
+    disgust: 1713
+    neutral: 8737
+    love: 4536
+    worry: 8459
+    happiness: 20203
+    boredom: 179
+
+Joined Columns:
+- joy with happiness
+- Removed anticipation feeling
+- Removed empty feeling
+- Removed fun feeling
+- Removed Optimism and enthusiasm feelings
+- Removed hate feeling

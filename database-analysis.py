@@ -13,12 +13,16 @@ print("\nFirst few rows of the dataset:")
 print("============================")
 print(df.head())
 
-# Get unique values in the Emotion column
-unique_emotions = df['sentiment'].unique()
+# Filter out rows where the emotion is 'anticipation'
+df = df[df['sentiment'] != 'relief']
 
-# Print the unique emotions and their counts
-print("\nUnique emotions found in the dataset:")
+# Save the modified DataFrame back to a CSV file
+df.to_csv('./text_emotion.csv', index=False)
+
+# Print the updated unique emotions and their counts
+print("\nUpdated unique emotions found in the dataset:")
 print("=====================================")
+unique_emotions = df['sentiment'].unique()
 for emotion in unique_emotions:
     count = df[df['sentiment'] == emotion].shape[0]
     print(f"emotion: {emotion} - Count: {count}")
