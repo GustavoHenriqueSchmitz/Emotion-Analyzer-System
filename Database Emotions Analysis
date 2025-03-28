@@ -45,15 +45,14 @@ Text emotion:
 - anger -> 110
 
 Total Counts (Consolidated):
-
-    fear: 5823
+    fear: 5823 - failed
     anger: 8338
     sadness: 25699
     disgust: 1713
     neutral: 8737
     love: 4536
     worry: 8459
-    happiness: 20203
+    happiness: 20203 - worked
     boredom: 179
 
 Joined Columns:
