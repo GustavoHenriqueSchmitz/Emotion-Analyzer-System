@@ -3,10 +3,22 @@ from tensorflow.keras.layers import TextVectorization
 from tensorflow.keras.callbacks import EarlyStopping
 import pandas as pd
 
-VOCAB_SIZE = 10000  # Max words in vocabulary
-SEQUENCE_LENGTH = 500 # Max words per text sample
-EMBEDDING_DIM = 128 # Dimension for word embeddings
-LSTM_UNITS = 64     # Units in the LSTM layer
+# --- Configuration ---
+VOCAB_SIZE = 10000          # Max words in vocabulary
+SEQUENCE_LENGTH = 256       # Max words per text sample
+EMBEDDING_DIM = 128         # Dimension for word embeddings
+LSTM_UNITS = 64             # Units in the LSTM layer
+DROPOUT_RATE = 0.2          # Dropout rate for regularization
+
+# Training Hyperparameters
+EPOCHS = 50                 # Max number of training epochs
+BATCH_SIZE = 32             # Samples per batch during training
+OPTIMIZER = 'adam'          # Optimization algorithm
+LOSS_FUNCTION = 'categorical_crossentropy' # Loss function for training
+
+# Early Stopping Configuration
+ES_PATIENCE = 3             # Patience for Early Stopping (epochs)
+ES_MONITOR = 'val_loss'     # Metric to monitor for Early Stopping
 
 # --- 1. Getting the data ---
 try:
@@ -18,8 +30,8 @@ except FileNotFoundError as e:
 
 # --- 2. Preprocessing the data ---
 # Select the text column and ensure it's string type
-x_train_text = train_data['Text'].astype(str).values
-x_test_text = test_data['Text'].astype(str).values
+x_train_text = train_data['text'].astype(str).values
+x_test_text = test_data['text'].astype(str).values
 
 # Create and adapt the TextVectorization layer
 vectorize_layer = TextVectorization(
@@ -43,14 +55,14 @@ y_test = pd.get_dummies(y_test_labels)
 model = keras.Sequential([
     keras.layers.Embedding(input_dim=VOCAB_SIZE, output_dim=EMBEDDING_DIM, mask_zero=True),
     keras.layers.LSTM(LSTM_UNITS),
-    keras.layers.Dropout(0.2),
-    keras.layers.Dense(num_classes = y_train.shape[1], activation='softmax')
+    keras.layers.Dropout(DROPOUT_RATE),
+    keras.layers.Dense(y_train.shape[1], activation='softmax')
 ])
 
 # --- 4. Compile the model ---
 model.compile(
-    loss='categorical_crossentropy',
-    optimizer='adam',
+    loss=LOSS_FUNCTION,
+    optimizer=OPTIMIZER,
     metrics=['accuracy']
 )
 model.build(input_shape=(None, SEQUENCE_LENGTH)) # Build the model explicitly to see summary
@@ -58,10 +70,9 @@ model.summary() # Print model structure
 
 # --- 5. Train the model ---
 print("\n--- Starting Training ---")
-# Define the EarlyStopping callback
 early_stopping = EarlyStopping(
-    monitor='val_loss',
-    patience=3,
+    monitor=ES_MONITOR,
+    patience=ES_PATIENCE,
     restore_best_weights=True,
     verbose=1
 )
@@ -69,8 +80,8 @@ early_stopping = EarlyStopping(
 # Use validation_data and ADD the callback
 history = model.fit(
     x_train, y_train,
-    epochs=50,
-    batch_size=32,
+    epochs=EPOCHS,
+    batch_size=BATCH_SIZE,
     validation_data=(x_test, y_test),
     callbacks=[early_stopping]
 )
